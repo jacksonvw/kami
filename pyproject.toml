@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kami"
+version = "0.1.0"
+description = "Tabbed notepad for plain text and Markdown, for Fedora KDE Plasma"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = ["PySide6>=6.5"]
+
+[project.optional-dependencies]
+# Colours the code blocks in the Markdown preview.
+highlight = ["Pygments>=2.10"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+kami = "kami.main:main"
+
+[tool.setuptools.packages.find]
+include = ["kami*"]
+
+[tool.setuptools.package-data]
+kami = ["resources/*.svg"]

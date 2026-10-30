@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Kami
+GenericName=Text Editor
+Comment=Tabbed notepad for plain text and Markdown
+Keywords=notepad;note;notes;memo;scratch;text;editor;markdown;
+Exec="@PROJECT_ROOT@/bin/kami" %F
+Icon=kami
+Terminal=false
+StartupNotify=true
+StartupWMClass=Kami
+Categories=Utility;TextEditor;
+MimeType=text/plain;text/markdown;

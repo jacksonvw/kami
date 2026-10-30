@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <!-- Kami: a sheet of paper (紙) with its corner folded over. A one-unit
+       outline, the fold drawn solid, and three lines of writing, the last
+       one short. Salt's stack of solid pages stays the suite's only solid page.
+       Drawn in the colour scheme's text colour, as Breeze's monochrome icons
+       are: Plasma swaps in the current scheme's ColorScheme-Text, and anything
+       that doesn't know the convention uses Breeze's default below.
+       The comment sits inside <svg> because file-type sniffing (shared-mime-info,
+       so GdkPixbuf and AppStream) only looks for "<svg" in the first 256 bytes. -->
+  <style type="text/css" id="current-color-scheme">.ColorScheme-Text { color: #232629; }</style>
+  <path class="ColorScheme-Text" fill="currentColor" fill-rule="evenodd" d="M 3 1 H 10 L 14 5 V 15 H 3 Z M 4 2 V 14 H 13 V 6 H 9 V 2 Z"/>
+  <rect class="ColorScheme-Text" fill="currentColor" x="6" y="8" width="5" height="1"/>
+  <rect class="ColorScheme-Text" fill="currentColor" x="6" y="10" width="5" height="1"/>
+  <rect class="ColorScheme-Text" fill="currentColor" x="6" y="12" width="3" height="1"/>
+</svg>
