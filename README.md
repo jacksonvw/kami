@@ -2,6 +2,8 @@
 
 A tabbed notepad for plain text and Markdown on the Linux desktop.
 
+![Kami showing a trip note in English and Japanese, wrapped to a narrow window](docs/screenshots/kami.png)
+
 Kami (紙, Japanese for paper) is the Windows 11 Notepad I missed after moving
 to Fedora: a scratch pad for notes, keys and drafts that opens instantly and
 never makes you save. Close it whenever you like and every tab comes back
