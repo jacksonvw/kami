@@ -1,0 +1,68 @@
+# Kami as a Flatpak: KDE's runtime, for Plasma's own Qt and KWindowSystem,
+# plus Qt's PySide6 base app. Build and install from the repository root:
+#   flatpak run org.flatpak.Builder --user --install --force-clean \
+#       build/flatpak flatpak/com.jacksonv.Kami.yml
+app-id: com.jacksonv.Kami
+runtime: org.kde.Platform
+runtime-version: '6.11'
+sdk: org.kde.Sdk
+base: io.qt.PySide.BaseApp
+base-version: '6.11'
+command: kami
+finish-args:
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  # Read and write, including on removable drives: to save any file the file
+  # manager, Ctrl+O or a drop hands over, reopen it with the session, and
+  # show the images beside a Markdown file in the preview.
+  - --filesystem=host
+  # Plasma's colour scheme and fonts.
+  - --filesystem=xdg-config/kdeglobals:ro
+build-options:
+  env:
+    # Read by cleanup-BaseApp.sh: Kami uses neither.
+    BASEAPP_REMOVE_WEBENGINE: '1'
+    BASEAPP_DISABLE_NUMPY: '1'
+cleanup:
+  # The base app's build tooling: headers, Qt's qmake specs, and the LLVM
+  # that shiboken's binding generator runs on.
+  - /include
+  - /mkspecs
+  - /lib/cmake
+  - /lib/libLLVM*
+  - /lib/libclang*
+  - /bin/shiboken6*
+  - /lib/python3*/site-packages/shiboken6_generator*
+cleanup-commands:
+  - /app/cleanup-BaseApp.sh
+  - rm -f /app/cleanup-BaseApp*.sh
+modules:
+  - python3-deps.yaml
+
+  - name: kami
+    buildsystem: simple
+    build-commands:
+      - mkdir -p /app/share/kami
+      - cp -r kami /app/share/kami/
+      - rm -rf /app/share/kami/*/tests
+      - find /app/share/kami -name __pycache__ -prune -exec rm -rf {} +
+      # By hash: the deployed files' timestamps don't survive installation.
+      - python3 -m compileall -q --invalidation-mode checked-hash /app/share/kami
+      - install -Dm755 flatpak/launch.sh /app/bin/kami
+      - install -Dm644 kami/resources/kami.svg
+          /app/share/icons/hicolor/scalable/apps/com.jacksonv.Kami.svg
+      # The checkout's entry, with the Flatpak's command and icon.
+      - sed -e 's|^Exec=.*|Exec=kami %F|'
+            -e 's|^Icon=.*|Icon=com.jacksonv.Kami|'
+            desktop/kami.desktop.in > com.jacksonv.Kami.desktop
+      - install -Dm644 -t /app/share/applications com.jacksonv.Kami.desktop
+      - install -Dm644 -t /app/share/metainfo flatpak/com.jacksonv.Kami.metainfo.xml
+    sources:
+      - type: dir
+        path: ..
+        skip:
+          - .git
+          - .flatpak-builder
+          - build

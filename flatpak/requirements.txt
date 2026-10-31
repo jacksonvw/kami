@@ -1,0 +1,3 @@
+# The Python package for the Flatpak, pinned. After changing it, regenerate
+# python3-deps.yaml as flatpak/README.md describes.
+Pygments==2.21.0

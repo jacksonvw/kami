@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.jacksonv.Kami</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+
+  <name>Kami</name>
+  <summary>Tabbed notepad for plain text and Markdown</summary>
+  <developer id="com.jacksonv">
+    <name>Jackson Vander Wal</name>
+  </developer>
+
+  <description>
+    <p>
+      Kami (紙, Japanese for paper) is a scratch pad for notes, keys and drafts
+      that never makes you save. Close it whenever you like and every tab
+      comes back next time, unsaved ones included. It is a page, a few tabs
+      and a menu bar: a text editor, not a word processor.
+    </p>
+    <ul>
+      <li>Tabs that drag out into a window of their own and back again</li>
+      <li>Keeps every tab between runs, with the unsaved text in a folder only your account can read</li>
+      <li>Names an unsaved tab after its first line</li>
+      <li>A Markdown preview: headings, task lists, tables, quotes, links, images and colour-coded code blocks</li>
+      <li>Opens a file in its own encoding and line endings and saves it the same way, so Windows files keep their CRLFs</li>
+      <li>One Kami at a time: opening another file adds a tab to the open window</li>
+      <li>Notepad's menus and keys, Find and Replace, Go To, and F5 for the time and date</li>
+      <li>A translucent window with KWin's blur behind it</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">com.jacksonv.Kami.desktop</launchable>
+  <provides>
+    <binary>kami</binary>
+  </provides>
+
+  <url type="homepage">https://github.com/jacksonvw/kami</url>
+  <url type="bugtracker">https://github.com/jacksonvw/kami/issues</url>
+  <url type="vcs-browser">https://github.com/jacksonvw/kami</url>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/jacksonvw/kami/main/docs/screenshots/kami.png</image>
+      <caption>A trip note in English and Japanese, wrapped to a narrow window</caption>
+    </screenshot>
+  </screenshots>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </supports>
+  <content_rating type="oars-1.1"/>
+
+  <releases>
+    <release version="0.1.0" date="2026-10-31"/>
+  </releases>
+</component>
