@@ -31,21 +31,24 @@ bar. It is a text editor, not a word processor.
 
 ## Status
 
-Working on Fedora 44 with KDE Plasma 6 on Wayland, run from a checkout.
-Missing: a Flatpak, and a choice of encoding or line endings when saving.
+Working on Fedora 44 with KDE Plasma 6 on Wayland, run from a checkout or as a
+Flatpak. Missing: a Flathub listing (the Flatpak builds from this repository)
+and a choice of encoding or line endings when saving.
 
 ## Built with
 
 Python 3 and PySide6 (Qt 6), taken from Fedora's RPMs so the window runs on
 Plasma's own Qt, as Pepper and Minim do. Qt reads the Markdown and draws the
 preview itself, with no web engine, and Pygments colours the code in it.
-KWindowSystem, called through ctypes, provides the blur.
+KWindowSystem, called through ctypes, provides the blur. The Flatpak gets the
+same from KDE's Flatpak runtime, with PySide6 from Qt's base app.
 
 | Directory | What it is |
 |---|---|
 | `kami/core/` | Files, settings, the session and the single-instance socket; no widgets |
 | `kami/ui/` | The window, tabs, editor, preview and Preferences |
 | `desktop/` | The launcher's desktop entry and the install script |
+| `flatpak/` | The Flatpak manifest, its pinned Python package, and its software-centre metadata |
 
 ## Build and run
 
@@ -76,6 +79,34 @@ entry and icon, and makes Kami the default for plain text and Markdown. After
 that, Ctrl+Alt+T and `kami` opens it, and typing "notepad", "note" or "memo"
 into the app launcher finds it. The script needs no root and is safe to
 re-run, including after moving the checkout.
+
+On any distribution with Flatpak, Kami builds as a Flatpak instead, with
+nothing installed outside Flatpak:
+
+```bash
+flatpak install flathub org.flatpak.Builder \
+    org.kde.Platform//6.11 org.kde.Sdk//6.11 io.qt.PySide.BaseApp//6.11
+
+git clone https://github.com/jacksonvw/kami.git
+cd kami
+flatpak run org.flatpak.Builder --user --install --force-clean \
+    build/flatpak flatpak/com.jacksonv.Kami.yml
+desktop/install.sh --flatpak    # the same defaults, for the Flatpak
+```
+
+`flatpak run com.jacksonv.Kami notes.md` then opens a file from a terminal,
+adding a tab to the open Kami as `kami notes.md` does; a run that starts Kami
+keeps the terminal until Kami closes. The Flatpak can read and write any file
+your account can, as an editor must. Its log goes to
+`~/.var/app/com.jacksonv.Kami/cache/kami.log`, and its settings and the tabs it
+keeps to the `config/` and `data/` folders beside it. On Fedora the page starts
+in KDE's own default font, Hack, since Fedora's default lies outside the
+sandbox; a font chosen in System Settings or Preferences applies as usual.
+Moving from a checkout install to the Flatpak, delete
+`~/.local/share/applications/kami.desktop`, or both versions appear in the app
+menu, and with Kami closed, copy `~/.local/share/kami` into
+`~/.var/app/com.jacksonv.Kami/data/` to bring your tabs along.
+`flatpak/README.md` covers updating the Python package it bundles.
 
 | Key | |
 |---|---|
